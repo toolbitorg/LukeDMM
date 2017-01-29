@@ -1,0 +1,45 @@
+
+
+git clone https://github.com/wxWidgets/wxWidgets.git
+
+
+
+For Windows
+
+* Using plain makefiles:
+
+Open DOS command line window (cmd.exe, *not* Bash sh.exe).
+
+Change directory to %WXWIN%\build\msw
+
+mingw32-make -f makefile.gcc BUILD=release SHARED=0
+
+
+
+For Mac OS X
+
+Install wxWidgets
+
+Download ToolbitSDK
+git clone https://github.com/toolbitorg/ToolbitSDK.git
+git clone git@github.com:toolbitorg/ToolbitSDK.git
+
+cd ChopperCtrl/src
+make -f makefile.macos
+
+
+
+For linux
+
+Install wxWidgets
+
+sudo apt-get install libwxgtk3.0-dev
+
+Download ToolbitSDK
+git clone https://github.com/toolbitorg/ToolbitSDK.git
+git clone git@github.com:toolbitorg/ToolbitSDK.git
+
+cd ChopperCtrl/src
+make -f makefile.gcc
+
+

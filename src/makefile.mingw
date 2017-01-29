@@ -1,0 +1,53 @@
+BINDIR = ../bin
+OBJDIR = ../build
+INCDIR = ../include
+LIBDIR = ../../ToolbitSDK/lib/mingw ../../wxWidgets/lib/vc_lib
+LIBSRCDIR = ../../ToolbitSDK/src
+
+CC  = gcc
+CXX = g++
+CFLAGS  = -g -MMD -MP
+LDFLAGS = 
+INCLUDE = -I$(INCDIR) -I../../ToolbitSDK/include -I$(shell ../../wxWidgets/build-debug/wx-config --cxxflags)
+
+LIBOBJS = $(LIBDIR)/libtbi.a
+LIBS = $(LIBOBJS) -lsetupapi
+
+TARGET = $(BINDIR)/.exe
+CPP_SOURCES = $(wildcard *.cpp) 
+
+OBJECTS	= $(addprefix $(OBJDIR)/, $(CPP_SOURCES:.cpp=.o)) $(addprefix $(OBJDIR)/, $(C_SOURCES:.c=.o))
+DEPENDS = $(OBJECTS:.o=.d)
+
+
+# implementation
+
+all: $(TARGET)
+
+$(LIBOBJS): FORCE
+	cd $(LIBSRCDIR); $(MAKE) -f makefile.mingw
+
+FORCE:
+
+$(TARGET): $(OBJECTS) $(LIBOBJS)
+	@[ -d $(BINDIR) ] || mkdir -p $(BINDIR)
+	$(CXX) -o $@ $(OBJECTS) $(LDFLAGS) $(LIBS)
+
+$(OBJDIR)/%.o : %.cpp 
+	@[ -d $(OBJDIR) ] || mkdir -p $(OBJDIR)	
+	$(CXX) $(CFLAGS) $(INCLUDE) -o $@ -c $<
+
+$(OBJDIR)/%.o : %.c
+	@[ -d $(OBJDIR)/HIDAPI/windows/ ] || mkdir -p $(OBJDIR)/HIDAPI/windows
+	$(CC) $(CFLAGS) $(INCLUDE) -o $@ -c $<
+
+clean:
+	$(RM) $(OBJECTS) $(TARGET) $(DEPENDS)
+
+
+-include $(DEPENDS)
+
+.SUFFIXES:      .o .cpp .c
+
+.PHONY: all clean
+
