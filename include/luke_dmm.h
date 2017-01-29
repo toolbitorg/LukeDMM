@@ -27,9 +27,10 @@ class LukeFrame: public MyFrame {
 public:
 
 	LukeFrame(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE);
+	~LukeFrame();
 
 private:
-
+	wxTimer* timer;
 
 protected:
 	// Need luke.h and libtbi.lib in ToolbitSDK
@@ -39,6 +40,7 @@ protected:
 
 public:
 	void onRadiobox(wxCommandEvent &event); // wxGlade: <event_handler>
+	void OnTimer(wxTimerEvent& event);
 	void OnIdle(wxIdleEvent& event);
 	MeasurementMode mode;
 };

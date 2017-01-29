@@ -9,8 +9,17 @@ LukeFrame::LukeFrame(wxWindow* parent, wxWindowID id, const wxPoint& pos, const 
 	luke = new Luke();
 	if (!luke->isConnected()) {
 	}
+	timer = new wxTimer(this);
+	Connect(wxEVT_TIMER, wxTimerEventHandler(LukeFrame::OnTimer));
+	timer->Start(100);
 }
 
+LukeFrame::~LukeFrame()
+{
+	delete luke;
+	timer->Stop();
+	delete timer;
+}
 
 
 BEGIN_EVENT_TABLE(LukeFrame, wxFrame)
@@ -36,7 +45,7 @@ void LukeFrame::onRadiobox(wxCommandEvent &event)
 	event.Skip();
 }
 
-void LukeFrame::OnIdle(wxIdleEvent& event)
+void LukeFrame::OnTimer(wxTimerEvent& WXUNUSED(event))
 {
 	if (luke->isConnected()) {
 
@@ -66,5 +75,9 @@ void LukeFrame::OnIdle(wxIdleEvent& event)
 			text_ctrl_value->SetValue(str);
 		}
 	}
+}
+
+void LukeFrame::OnIdle(wxIdleEvent& event)
+{
 }
 
