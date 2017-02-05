@@ -12,14 +12,14 @@ WX-CONFIG_LIBS		= $(shell wx-config --libs)
 # CC  = gcc
 # CXX = g++
 CXXFLAGS  = -g -MMD -MP
-LDFLAGS = 
+LDFLAGS =
 INCLUDE = -I$(INCDIR) -I$(LIBINCDIR) $(WX-CONFIG_CXXFLAGS)
 
 LIBOBJS = $(LIBDIR)/libtbi.a
-LIBS = $(LIBOBJS) $(WX-CONFIG_LIBS) `pkg-config libusb-1.0 --libs` -lpthread 
+LIBS = $(LIBOBJS) $(WX-CONFIG_LIBS) `pkg-config libusb-1.0 --libs` -lpthread
 
-TARGET = $(BINDIR)/ChopperCtrl
-CPP_SOURCES = $(wildcard *.cpp) 
+TARGET = $(BINDIR)/LukeDMM
+CPP_SOURCES = $(wildcard *.cpp)
 
 OBJECTS	= $(addprefix $(OBJDIR)/, $(CPP_SOURCES:.cpp=.o)) $(addprefix $(OBJDIR)/, $(C_SOURCES:.c=.o))
 DEPENDS = $(OBJECTS:.o=.d)
@@ -38,8 +38,8 @@ $(TARGET): $(OBJECTS) $(LIBOBJS)
 	@[ -d $(BINDIR) ] || mkdir -p $(BINDIR)
 	$(CXX) -o $@ $(OBJECTS) $(LDFLAGS) $(LIBS)
 
-$(OBJDIR)/%.o : %.cpp 
-	@[ -d $(OBJDIR) ] || mkdir -p $(OBJDIR)	
+$(OBJDIR)/%.o : %.cpp
+	@[ -d $(OBJDIR) ] || mkdir -p $(OBJDIR)
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -o $@ -c $<
 
 clean:
@@ -52,4 +52,3 @@ clean:
 .SUFFIXES:      .o .cpp .c
 
 .PHONY: all clean
-

@@ -18,7 +18,7 @@ INCLUDE = -I$(INCDIR) -I$(LIBINCDIR) $(WX-CONFIG_CXXFLAGS)
 LIBOBJS = $(LIBDIR)/libtbi.a
 LIBS = $(LIBOBJS) $(WX-CONFIG_LIBS)
 
-TARGET = $(BINDIR)/ChopperCtrl
+TARGET = $(BINDIR)/LukeDMM
 CPP_SOURCES = $(wildcard *.cpp)
 
 OBJECTS	= $(addprefix $(OBJDIR)/, $(CPP_SOURCES:.cpp=.o)) $(addprefix $(OBJDIR)/, $(C_SOURCES:.c=.o))
