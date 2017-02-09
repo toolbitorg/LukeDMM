@@ -1,4 +1,3 @@
-//#include <iomanip>
 #include "luke_dmm.h"
 
 LukeFrame::LukeFrame(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style): 
@@ -73,8 +72,9 @@ void LukeFrame::OnTimer(wxTimerEvent& WXUNUSED(event))
 			}
 		}
 		wxString str;
-		str.Printf(wxT("%f"), value);
+		str.Printf(wxT("%3.2f"), value);
 		text_ctrl_value->SetValue(str);
+		text_ctrl_value->SetSelection(-1, -1);
 	}
 }
 
