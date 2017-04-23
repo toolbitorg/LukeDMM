@@ -16,7 +16,7 @@ LDFLAGS =
 INCLUDE = -I$(INCDIR) -I$(LIBINCDIR) $(WX-CONFIG_CXXFLAGS)
 
 LIBOBJS = $(LIBDIR)/libtbi.a
-LIBS = $(LIBOBJS) $(WX-CONFIG_LIBS) `pkg-config libusb-1.0 --libs` -lpthread
+LIBS = $(LIBOBJS) $(WX-CONFIG_LIBS) `pkg-config libusb-1.0 libudev --libs` -lpthread
 
 TARGET = $(BINDIR)/LukeDMM
 CPP_SOURCES = $(wildcard *.cpp)
